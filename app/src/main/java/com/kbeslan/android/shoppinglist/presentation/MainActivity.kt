@@ -1,7 +1,8 @@
-package com.kbeslan.android.shoppinglist
+package com.kbeslan.android.shoppinglist.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.kbeslan.android.shoppinglist.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
