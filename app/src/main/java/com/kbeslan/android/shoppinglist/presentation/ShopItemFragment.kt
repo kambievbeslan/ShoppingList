@@ -12,11 +12,20 @@ import androidx.lifecycle.ViewModelProvider
 import com.kbeslan.android.shoppinglist.R
 import com.kbeslan.android.shoppinglist.databinding.FragmentShopItemBinding
 import com.kbeslan.android.shoppinglist.domain.ShopItem
+import javax.inject.Inject
 
 class ShopItemFragment : Fragment() {
 
     private lateinit var viewModel: ShopItemViewModel
     private lateinit var onEditingFinishedListener: OnEditingFinishedListener
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    val component by lazy {
+        (requireActivity().application as ShopApplication).component
+    }
+
     private var _binding: FragmentShopItemBinding? = null
     private val binding: FragmentShopItemBinding
         get() = _binding!!
@@ -26,6 +35,9 @@ class ShopItemFragment : Fragment() {
 
 
     override fun onAttach(context: Context) {
+
+        component.inject(this)
+
         super.onAttach(context)
         if (context is OnEditingFinishedListener) {
             onEditingFinishedListener = context
@@ -33,6 +45,7 @@ class ShopItemFragment : Fragment() {
             throw RuntimeException("Activity must implement listener")
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parseParams()
@@ -48,7 +61,7 @@ class ShopItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[ShopItemViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[ShopItemViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         addTextChangeListeners()
