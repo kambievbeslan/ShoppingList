@@ -58,7 +58,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
 
     implementation("com.google.dagger:dagger:2.50")
-    implementation("com.google.dagger:dagger-compiler:2.50")
+    kapt("com.google.dagger:dagger-compiler:2.50")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
